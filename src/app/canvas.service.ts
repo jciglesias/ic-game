@@ -23,9 +23,22 @@ export class CanvasService {
         if (contex) {
           contex.font = '50px Georgia';
         }
+
+        const mouse = {
+            x: this.canvas.width / 2,
+            y: this.canvas.height / 2,
+            click: false,
+          }
+      
+          let canvasPosition = this.position
+        this.canvas.addEventListener("mousedown", function(event: MouseEvent){
+            mouse.x = event.x - canvasPosition.left;
+            mouse.y = event.y - canvasPosition.top;
+            console.log(mouse);
+        });
     }
 
-    addCanvasEvent(event: string, fn: any) {
-        this.canvas.addEventListener(event, fn);
-    }
+    // addCanvasEvent(event: keyof HTMLElementEventMap, fn: (this: HTMLCanvasElement, event: MouseEvent) => void) {
+    //     this.canvas.addEventListener("mousedown", fn);
+    // }
 }
