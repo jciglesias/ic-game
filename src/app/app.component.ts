@@ -20,8 +20,6 @@ export class AppComponent implements OnInit {
     let position = canvas.getBoundingClientRect();
     console.log("debug");
     const contex = canvas.getContext('2d');
-    canvas.width = 800;
-    canvas.height = 500;
 
     let score = 0;
     let gameFrame = 0;
