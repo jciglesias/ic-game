@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { range } from 'rxjs';
-import { CanvasService } from './canvas.service';
 import { Mouse } from './mouse.service';
+import { Player } from './player.service';
 
 @Component({
   selector: 'app-root',
@@ -10,39 +9,49 @@ import { Mouse } from './mouse.service';
 })
 export class AppComponent implements OnInit {
   title = 'ic-game';
-  constructor(
-    // private canvasService: CanvasService,
-    private mouse: Mouse,
-    ){}
+  canvas: HTMLCanvasElement;
+  context: CanvasRenderingContext2D | null;
+
+  constructor(private player: Player, private mouse: Mouse) {
+    // let canvas = document.getElementById('canvas') as HTMLCanvasElement;
+    this.canvas = {} as HTMLCanvasElement;
+    this.context = null;
+  }
+  
   @ViewChild('canvas', { static: true }) myCanvas!: ElementRef;
   ngOnInit(): void {
-    let canvas: HTMLCanvasElement = this.myCanvas.nativeElement;
-    let position = canvas.getBoundingClientRect();
+    this.canvas = this.myCanvas.nativeElement;
+    // this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
+    console.log(this.canvas);
+    let position = this.canvas.getBoundingClientRect();
     console.log("debug");
-    const contex = canvas.getContext('2d');
+    this.context = this.canvas.getContext('2d');
 
     let score = 0;
     let gameFrame = 0;
-    if (contex) {
-      contex.font = '50px Georgia';
+    if (this.context) {
+      this.context.font = '50px Georgia';
     }
 
-    let canvasPosition = position;
-    let tmpmouse = this.mouse;
-    canvas.addEventListener("mousedown", function(event: MouseEvent) {
-        tmpmouse.x = event.x - canvasPosition.left;
-        tmpmouse.y = event.y - canvasPosition.top;
-        tmpmouse.click = true;
-        console.log(tmpmouse);
+    let raton = this.mouse;
+    this.canvas.addEventListener("mousedown", function(event: MouseEvent) {
+      raton.x = event.x - position.left;
+      raton.y = event.y - position.top;
+        raton.click = true;
+        console.log(raton);
+      });
+      this.canvas.addEventListener("mouseup", function(event: MouseEvent) {
+        raton.x = event.x - position.left;
+        raton.y = event.y - position.top;
+        raton.click = false;
+        console.log(raton);
     });
-    canvas.addEventListener("mouseup", function(event: MouseEvent) {
-      tmpmouse.x = event.x - canvasPosition.left;
-      tmpmouse.y = event.y - canvasPosition.top;
-      tmpmouse.click = false;
-      console.log(tmpmouse);
-    });
-    canvas.addEventListener("keydown", function(event){
-      console.log(event);
-    });
+    this.animate();
+  }
+  
+  animate() {
+    this.player.update(this.mouse);
+    this.player.draw(this.context, this.mouse);
+    requestAnimationFrame(this.animate);
   }
 }

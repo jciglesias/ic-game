@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { CanvasService } from "./canvas.service";
+import { Mouse } from "./mouse.service";
 
 @Injectable({providedIn: 'root'})
 export class Player {
@@ -24,5 +24,32 @@ export class Player {
         this.spriteWidth = 498;
     }
 
-    ngOnInit(){}
+    update(mouse: Mouse){
+        const dx = this.x - mouse.x;
+        const dy = this.y - mouse.y;
+
+        if (mouse.x != this.x) {
+            this.x -= dx / 30;
+        }
+        if (mouse.y != this.y) {
+            this.y -= dy / 30;
+        }
+    }
+
+    draw(context: CanvasRenderingContext2D | null, mouse: Mouse) {
+        if (context) {
+            if (mouse.click) {
+                context.lineWidth = 0.2;
+                context.beginPath();
+                context.moveTo(this.x, this.y);
+                context.lineTo(mouse.x, mouse.y);
+                context.stroke();
+            }
+            context.fillStyle = 'red';
+            context.beginPath();
+            context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            context.fill();
+            context.closePath();
+        }
+    }
 }

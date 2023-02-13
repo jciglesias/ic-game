@@ -30,10 +30,10 @@ export class CanvasService {
             click: false,
           }
       
-          let canvasPosition = this.position
+          let position = this.position
         this.canvas.addEventListener("mousedown", function(event: MouseEvent){
-            mouse.x = event.x - canvasPosition.left;
-            mouse.y = event.y - canvasPosition.top;
+            mouse.x = event.x - position.left;
+            mouse.y = event.y - position.top;
             console.log(mouse);
         });
     }
