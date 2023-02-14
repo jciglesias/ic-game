@@ -11,11 +11,12 @@ export class AppComponent implements OnInit {
   title = 'ic-game';
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D | null;
+  player: Player;
 
-  constructor(private player: Player, private mouse: Mouse) {
-    // let canvas = document.getElementById('canvas') as HTMLCanvasElement;
+  constructor( private mouse: Mouse) {
     this.canvas = {} as HTMLCanvasElement;
     this.context = null;
+    this.player = {} as Player
   }
   
   @ViewChild('canvas', { static: true }) myCanvas!: ElementRef;
@@ -24,8 +25,9 @@ export class AppComponent implements OnInit {
     // this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
     console.log(this.canvas);
     let position = this.canvas.getBoundingClientRect();
-    console.log("debug");
+    // console.log("debug");
     this.context = this.canvas.getContext('2d');
+    this.player = new Player(this.canvas);
 
     let score = 0;
     let gameFrame = 0;
@@ -49,7 +51,9 @@ export class AppComponent implements OnInit {
     this.animate();
   }
   
-  animate() {
+  animate = () => {
+    // console.log(this.player);
+    this.context?.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.player.update(this.mouse);
     this.player.draw(this.context, this.mouse);
     requestAnimationFrame(this.animate);

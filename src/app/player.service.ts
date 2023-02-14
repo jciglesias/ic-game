@@ -12,21 +12,25 @@ export class Player {
     frame: number;
     spriteWidth: number;
     spriteHeight: number;
-    constructor(){
+    adjustX: number;
+    adjustY: number;
+    constructor(canvas: HTMLCanvasElement){
         this.x = 0;
         this.y = 0;
-        this.radius = 50;
         this.angle = 0;
         this.frame = 0;
         this.frameX = 0;
         this.frameY = 0;
-        this.spriteHeight = 327;
-        this.spriteWidth = 498;
+        this.adjustX = canvas.width / canvas.offsetWidth;
+        this.adjustY = canvas.height / canvas.offsetHeight;
+        this.spriteHeight = (canvas.height + canvas.width) / (2 * 30);
+        this.spriteWidth = (canvas.height + canvas.width) / (2 * 30);
+        this.radius = (canvas.height + canvas.width) / (2 * 50);
     }
 
     update(mouse: Mouse){
-        const dx = this.x - mouse.x;
-        const dy = this.y - mouse.y;
+        const dx = this.x - (mouse.x * this.adjustX);
+        const dy = this.y - (mouse.y * this.adjustY);
 
         if (mouse.x != this.x) {
             this.x -= dx / 30;
@@ -39,10 +43,10 @@ export class Player {
     draw(context: CanvasRenderingContext2D | null, mouse: Mouse) {
         if (context) {
             if (mouse.click) {
-                context.lineWidth = 0.2;
+                context.lineWidth = 0.1;
                 context.beginPath();
                 context.moveTo(this.x, this.y);
-                context.lineTo(mouse.x, mouse.y);
+                // context.lineTo(mouse.x * this.adjustX, mouse.y * this.adjustY);
                 context.stroke();
             }
             context.fillStyle = 'red';

@@ -6,13 +6,13 @@
 
 body {
     width: 99vw;
-    height: 98vh;
+    height: 97vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#canvas1 {
+#canvas {
     width: 80%;
     height: 80%;
     border: 4px solid black;
