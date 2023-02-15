@@ -13,6 +13,7 @@ body {
 }
 
 #canvas {
+    position: absolute;
     width: 80%;
     height: 80%;
     border: 4px solid black;

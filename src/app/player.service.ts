@@ -23,9 +23,9 @@ export class Player {
         this.frameY = 0;
         this.adjustX = canvas.width / canvas.offsetWidth;
         this.adjustY = canvas.height / canvas.offsetHeight;
-        this.spriteHeight = (canvas.height + canvas.width) / (2 * 30);
-        this.spriteWidth = (canvas.height + canvas.width) / (2 * 30);
-        this.radius = (canvas.height + canvas.width) / (2 * 50);
+        this.spriteWidth = 498 * this.adjustX;
+        this.spriteHeight = 327 * this.adjustY;
+        this.radius = 50 * (this.adjustX + this.adjustY) / 2;
     }
 
     update(mouse: Mouse){

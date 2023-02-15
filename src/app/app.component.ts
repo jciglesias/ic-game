@@ -52,7 +52,6 @@ export class AppComponent implements OnInit {
   }
   
   animate = () => {
-    // console.log(this.player);
     this.context?.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.player.update(this.mouse);
     this.player.draw(this.context, this.mouse);
