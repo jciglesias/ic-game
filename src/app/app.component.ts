@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
     let score = 0;
     let gameFrame = 0;
     if (this.context) {
-      this.context.font = '50px Georgia';
+      this.context.font = ((this.canvas.width * this.canvas.height)) * 0.0008 + 'px Georgia';
     }
 
     let raton = this.mouse;
