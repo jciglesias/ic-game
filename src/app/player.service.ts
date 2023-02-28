@@ -15,8 +15,8 @@ export class Player {
     adjustX: number;
     adjustY: number;
     constructor(canvas: HTMLCanvasElement){
-        this.x = 0;
-        this.y = 0;
+        this.x = canvas.width / 2;
+        this.y = canvas.height / 2;
         this.angle = 0;
         this.frame = 0;
         this.frameX = 0;
@@ -25,7 +25,7 @@ export class Player {
         this.adjustY = canvas.height / canvas.offsetHeight;
         this.spriteWidth = 498 * this.adjustX;
         this.spriteHeight = 327 * this.adjustY;
-        this.radius = 50 * (this.adjustX + this.adjustY) / 2;
+        this.radius = (canvas.height / 2) * 0.05;
     }
 
     update(mouse: Mouse){
@@ -46,7 +46,7 @@ export class Player {
                 context.lineWidth = 0.1;
                 context.beginPath();
                 context.moveTo(this.x, this.y);
-                // context.lineTo(mouse.x * this.adjustX, mouse.y * this.adjustY);
+                context.lineTo(mouse.x * this.adjustX, mouse.y * this.adjustY);
                 context.stroke();
             }
             context.fillStyle = 'red';
@@ -54,7 +54,6 @@ export class Player {
             context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             context.fill();
             context.closePath();
-            context.strokeText("hello world", 10, 100)
         }
     }
 }

@@ -6,9 +6,9 @@ export class Mouse {
     x: number;
     y: number;
     click: boolean;
-    constructor(private canvasService: CanvasService){
-        this.x = 0;
-        this.y = 0;
+    constructor(canvas: HTMLCanvasElement){
+        this.x = canvas.width / 2;
+        this.y = canvas.height / 2;
         this.click = false;
     }
 
