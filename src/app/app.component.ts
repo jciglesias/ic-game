@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Mouse } from './mouse.service';
 import { Player } from './player.service';
+import { MapService } from './map.service'
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ export class AppComponent implements OnInit {
   player: Player;
   mouse: Mouse;
   end: boolean;
+  map: MapService;
 
   constructor() {
     this.canvas = {} as HTMLCanvasElement;
@@ -21,6 +23,7 @@ export class AppComponent implements OnInit {
     this.player = {} as Player;
     this.mouse = {} as Mouse;
     this.end = false;
+    this.map = {} as MapService;
   }
   
   @ViewChild('canvas', { static: true }) myCanvas!: ElementRef;
@@ -29,6 +32,7 @@ export class AppComponent implements OnInit {
     console.log(this.canvas);
     let position = this.canvas.getBoundingClientRect();
     this.context = this.canvas.getContext('2d');
+    this.map = new MapService(this.context);
     this.mouse = new Mouse(this.canvas)
     this.player = new Player(this.canvas);
 
@@ -52,12 +56,14 @@ export class AppComponent implements OnInit {
         raton.click = false;
         console.log(raton);
     });
+    // console.log(this.map)
     this.animate();
   }
   
   animate = () => {
     this.context?.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.player.update(this.mouse);
+    this.map.draw(this.context);
     this.player.draw(this.context, this.mouse);
     if (this.player.x > (this.canvas.width * 0.95) && this.player.y > (this.canvas.height * 0.95)) {
       this.end = true;

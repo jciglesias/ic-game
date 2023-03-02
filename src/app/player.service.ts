@@ -25,7 +25,7 @@ export class Player {
         this.adjustY = canvas.height / canvas.offsetHeight;
         this.spriteWidth = 498 * this.adjustX;
         this.spriteHeight = 327 * this.adjustY;
-        this.radius = (canvas.height / 2) * 0.05;
+        this.radius = 5;
     }
 
     update(mouse: Mouse){
@@ -43,11 +43,11 @@ export class Player {
     draw(context: CanvasRenderingContext2D | null, mouse: Mouse) {
         if (context) {
             if (mouse.click) {
-                context.lineWidth = 0.1;
+                // context.lineWidth = 0.1;
                 context.beginPath();
                 context.moveTo(this.x, this.y);
-                context.lineTo(mouse.x * this.adjustX, mouse.y * this.adjustY);
-                context.stroke();
+                // context.lineTo(mouse.x * this.adjustX, mouse.y * this.adjustY);
+                // context.stroke();
             }
             context.fillStyle = 'red';
             context.beginPath();
@@ -56,4 +56,4 @@ export class Player {
             context.closePath();
         }
     }
-}
+};
