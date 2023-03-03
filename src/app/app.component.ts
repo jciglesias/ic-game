@@ -33,8 +33,8 @@ export class AppComponent implements OnInit {
     let position = this.canvas.getBoundingClientRect();
     this.context = this.canvas.getContext('2d');
     this.map = new MapService(this.context);
-    this.mouse = new Mouse(this.canvas)
-    this.player = new Player(this.canvas);
+    this.mouse = new Mouse(this.canvas, this.map.map)
+    this.player = new Player(this.canvas, this.map.map);
 
     let score = 0;
     let gameFrame = 0;
@@ -70,9 +70,9 @@ export class AppComponent implements OnInit {
     }
     if (this.end && this.context) {
       let gradient = this.context.createLinearGradient(0, 0, this.canvas.width, 0);
-      gradient.addColorStop(0, "black");
+      gradient.addColorStop(0, "red");
       gradient.addColorStop(0.5, "blue");
-      gradient.addColorStop(1.0, "black");
+      gradient.addColorStop(1.0, "red");
       this.context.fillStyle = gradient;
       this.context.fillText("Game Over", 10, 100);
       return

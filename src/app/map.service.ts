@@ -8,12 +8,15 @@ export class MapService {
     constructor(ctx: CanvasRenderingContext2D | null) {
         this.map = this.createMap(33, 65);
         this.id = {} as ImageData;
+        let newmap = [] as Array<Array<number>>;
         if (ctx) {
             this.id = ctx.createImageData(650, 330);
             let buff = new Uint8ClampedArray(650 * 330 * 4)
             for (let i = 0; i < (this.map.length * 10); i++) {
+              newmap.push([]);
                 for (let j = 0; j < (this.map[Math.floor(i / 10)].length * 10); j++) {
                     if (this.map[Math.floor(i / 10)][Math.floor(j / 10)]) {
+                      newmap[i].push(1);
                         let pos = (i * 650 + j) * 4;
                         buff[pos] = 0;
                         buff[pos + 1] = 0;
@@ -21,6 +24,7 @@ export class MapService {
                         buff[pos + 3] = 255;
                     }
                     else {
+                      newmap[i].push(0)
                         let pos = (i * 650 + j) * 4;
                         buff[pos] = 255;
                         buff[pos + 1] = 255;
@@ -29,6 +33,7 @@ export class MapService {
                     }
                 }
             }
+            this.map = newmap;
             this.id.data.set(buff);
         }
     }
@@ -100,10 +105,7 @@ export class MapService {
             context.fillStyle = "black";
             context.strokeStyle = "blue";
             context.beginPath();
-            context.putImageData(this.id, 0, 0)
-            // context.closePath();
-            // context.stroke();
-            // context.fill();
+            context.putImageData(this.id, 0, 0);
         }
     }
 };
