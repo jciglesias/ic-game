@@ -44,10 +44,12 @@ export class Player {
     update(mouse: Mouse){
         const dx = this.x - (mouse.x * this.adjustX);
         const dy = this.y - (mouse.y * this.adjustY);
+        const newx = this.x - dx / 30;
+        const newy = this.y - dy / 30;
 
-        if (this.map[Math.round(this.x - (dx / 30))][Math.round(this.y - (dy / 30))] == 0) {
-                this.x -= dx / 30;
-                this.y -= dy / 30;
+        if (this.map[Math.round(newy)][Math.round(newx)] === 0) {
+                this.x = newx;
+                this.y = newy;
         }
     }
 

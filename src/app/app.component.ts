@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
     let position = this.canvas.getBoundingClientRect();
     this.context = this.canvas.getContext('2d');
     this.map = new MapService(this.context);
+    console.log(this.map.map)
     this.mouse = new Mouse(this.canvas, this.map.map)
     this.player = new Player(this.canvas, this.map.map);
 
@@ -48,13 +49,13 @@ export class AppComponent implements OnInit {
       raton.x = event.x - position.left;
       raton.y = event.y - position.top;
         raton.click = true;
-        console.log(raton);
+        // console.log(raton);
       });
       this.canvas.addEventListener("mouseup", function(event: MouseEvent) {
         raton.x = event.x - position.left;
         raton.y = event.y - position.top;
         raton.click = false;
-        console.log(raton);
+        // console.log(raton);
     });
     // console.log(this.map)
     this.animate();
