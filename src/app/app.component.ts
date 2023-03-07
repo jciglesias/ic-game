@@ -59,6 +59,8 @@ export class AppComponent implements OnInit {
     });
     // console.log(this.map)
     this.animate();
+    let tmpcanv = this.canvas;
+    window.addEventListener("resize", function(){position = tmpcanv.getBoundingClientRect();})
   }
   
   animate = () => {
