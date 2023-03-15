@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Item } from "./item.service";
 
 @Injectable({providedIn: "root"})
 export class MapService {
@@ -17,19 +18,19 @@ export class MapService {
                 for (let j = 0; j < (this.map[Math.floor(i / 10)].length * 10); j++) {
                     if (this.map[Math.floor(i / 10)][Math.floor(j / 10)]) {
                       newmap[i].push(1);
-                        let pos = (i * 650 + j) * 4;
-                        buff[pos] = 0;
-                        buff[pos + 1] = 0;
-                        buff[pos + 2] = 0;
-                        buff[pos + 3] = 255;
+                      let pos = (i * 650 + j) * 4;
+                      buff[pos] = 0;
+                      buff[pos + 1] = 0;
+                      buff[pos + 2] = 0;
+                      buff[pos + 3] = 255;
                     }
                     else {
                       newmap[i].push(0)
-                        let pos = (i * 650 + j) * 4;
-                        buff[pos] = 255;
-                        buff[pos + 1] = 255;
-                        buff[pos + 2] = 255;
-                        buff[pos + 3] = 255;
+                      let pos = (i * 650 + j) * 4;
+                      buff[pos] = 255;
+                      buff[pos + 1] = 255;
+                      buff[pos + 2] = 255;
+                      buff[pos + 3] = 255;
                     }
                 }
             }

@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Mouse } from './mouse.service';
 import { Player } from './player.service';
 import { MapService } from './map.service'
+import { Item } from './item.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit {
   mouse: Mouse;
   end: boolean;
   map: MapService;
+  items = [] as Array<Item>;
 
   constructor() {
     this.canvas = {} as HTMLCanvasElement;
@@ -36,6 +38,9 @@ export class AppComponent implements OnInit {
     console.log(this.map.map)
     this.mouse = new Mouse(this.canvas, this.map.map)
     this.player = new Player(this.canvas, this.map.map);
+    for (let i = 0; i < 4; i++)
+      this.items.push(new Item(this.map.map));
+    console.log(this.items)
 
     let score = 0;
     let gameFrame = 0;
@@ -68,6 +73,9 @@ export class AppComponent implements OnInit {
     this.player.update(this.mouse);
     this.map.draw(this.context);
     this.player.draw(this.context, this.mouse);
+    for (var x of this.items) {
+      x.draw(this.context);
+    }
     if (this.player.x > (this.canvas.width * 0.95) && this.player.y > (this.canvas.height * 0.95)) {
       this.end = true;
     }
