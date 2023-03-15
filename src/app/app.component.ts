@@ -72,10 +72,10 @@ export class AppComponent implements OnInit {
     this.context?.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.player.update(this.mouse);
     this.map.draw(this.context);
-    this.player.draw(this.context, this.mouse);
     for (var x of this.items) {
       x.draw(this.context);
     }
+    this.player.draw(this.context, this.mouse);
     if (this.player.x > (this.canvas.width * 0.95) && this.player.y > (this.canvas.height * 0.95)) {
       this.end = true;
     }
