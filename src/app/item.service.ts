@@ -24,12 +24,14 @@ export class Item {
 
     draw(context: CanvasRenderingContext2D | null) {
         if (context && this.state) {
-            // console.log(this.x, this.y)
+            console.log(this.x, this.y)
             context.fillStyle = 'green';
             context.beginPath();
-            context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            // context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            context.rect(this.x, this.y, 10, 10);
             context.fill();
             context.closePath();
+            // context.stroke();
         }
     }
 }
